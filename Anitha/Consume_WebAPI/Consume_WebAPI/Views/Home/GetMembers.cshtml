@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Consume_WebAPI.Models.MemberViewModel>
+
+@{
+    ViewBag.Title = "GetMembers";
+}
+
+<h2>GetMembers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "create", "Home")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit","Home", new {  id=item.MemberID },null) |
+            @*@Html.ActionLink("Details", "Details", new {  id=item.MemberID}) |*@
+            @Html.ActionLink("Delete", "Delete", "Home", new { id = item.MemberID },null)
+        </td>
+    </tr>
+}
+    <tr>
+        <td>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+</table>

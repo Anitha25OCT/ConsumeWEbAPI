@@ -1,0 +1,83 @@
+﻿@model Consume_WebAPI.Models.MemberViewModel
+
+@{
+    ViewBag.Title = "create";
+}
+
+<h2>create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>MemberViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MemberID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MemberID)
+                @Html.ValidationMessageFor(model => model.MemberID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MemberName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MemberName)
+                @Html.ValidationMessageFor(model => model.MemberName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber)
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btnadd" type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "GetMembers")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+
+    $("#btnAdd").click(function () {
+
+        var PersonalDetails = {
+            "MemberId": $("#FirstName").val(),
+            "MemberName": $("#LastName").val(),
+            "PhoneNumber": $("#Age").val()
+           
+        };
+
+        $.ajax({
+            type: "POST",
+            url: 'http://192.168.1.97:90/api/member',
+            data: JSON.stringify(PersonalDetails),
+            contentType: "application/json;charset=utf-8",
+            success: function (data, status, xhr) {
+                alert("The result is : " + status + ": " + data);
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+    });
+</script>
+
